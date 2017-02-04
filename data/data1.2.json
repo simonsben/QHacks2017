@@ -27,6 +27,13 @@
             "type": "Message",
             "message": "What is a code??<>",
             "timeSince": 60
+        },
+        {
+            "id": 5,
+            "name": "Joey M.",
+            "type": "Message",
+            "message": "What is a code??<>",
+            "timeSince": 25
         }
     ]
 }
