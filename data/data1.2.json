@@ -1,0 +1,32 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Bob A.",
+            "type": "Ping",
+            "message": "",
+            "timeSince": 240
+        },
+        {
+            "id": 1,
+            "name": "Joe K.",
+            "type": "Message",
+            "message": "How to code?",
+            "timeSince": 105   
+        },
+        {
+            "id": 3,
+            "name": "Daniel A.",
+            "type": "Ping",
+            "message": "",
+            "timeSince": 90
+        },
+        {
+            "id": 4,
+            "name": "Steve V.",
+            "type": "Message",
+            "message": "What is a code??<>",
+            "timeSince": 60
+        }
+    ]
+}
