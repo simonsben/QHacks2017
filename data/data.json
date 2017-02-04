@@ -1,0 +1,19 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "first": "ABC",
+            "last": "DEF"    
+        },
+        {
+            "id": 2,
+            "first": "GHI",
+            "last": "JKL"    
+        },
+        {
+            "id": 3,
+            "first": "MNO",
+            "last": "PQR"    
+        }
+    ]
+}

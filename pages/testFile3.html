@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <title>Flagg</title>
+    </head>
+    <body>
+        <p>Hello, World!</p>
+        
+        <script>
+            console.log('test?');
+            $.getJSON('data.json', function(stdData) {
+                var items = [];
+                $.each(stdData.students, function(index, readData) {
+                    console.log(readData.first);
+                })
+            })
+            
+        </script>
+    </body>
+</html>
