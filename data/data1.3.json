@@ -38,7 +38,7 @@
             "type": "Message",
             "message": "What is a code??",
             "location": "Bench 17",
-            "timeSince": 25
+            "timeSince": 45
         },
         {
             "id": 6,
@@ -46,7 +46,7 @@
             "type": "Message",
             "message": "How does this work?",
             "location": "Bench 15",
-            "timeSince": 25
+            "timeSince": 30
         },
         {
             "id": 7,
@@ -54,7 +54,7 @@
             "type": "Message",
             "message": "What is the meaning of life?",
             "location": "Bench 11",
-            "timeSince": 25
+            "timeSince": 10
         }
     ]
 }
