@@ -164,12 +164,18 @@
 
     </div>
     <!-- /#wrapper -->
-    
     <script>
-        $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId=5', function(rmData) {
+        var userId = sessionStorage.getItem('userId') || '5';
+        function chooseRoom(room){
+            window.roomId=room;
+            updateTable();
+        }
+    </script>
+    <script>
+        $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId='+userId, function(rmData) {
             var roomDat = [];
             $.each(rmData.rooms, function(index, readData) {
-                roomDat.push("<li> <a href='#'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
+                roomDat.push("<li> <a href='#' onclick='chooseRoom(\""+readData.roomId+"\")'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
                 console.log(readData.name);
             })
             
@@ -183,7 +189,7 @@
         function updateTable() {
             
             window.count++;
-            $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/admin/roomelements?userId=5&roomId=1', function(stdData) {
+            $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/admin/roomelements?userId='+userId+'&roomId='+window.roomId, function(stdData) {
                 window.loading = true;
                 var items = [], time, type;
                 var pingCount = 0, messCount = 0;
@@ -213,6 +219,7 @@
                 
                 $('#messCnt').replaceWith("<div class='huge' id='#messCnt'>"+messCount+"</div>");
                 $('#pingCnt').replaceWith("<div class='huge' id='#pingCnt'>"+pingCount+"</div>");
+                console.log('test');
 
             })
             window.loading = false;
