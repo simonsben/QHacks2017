@@ -47,14 +47,6 @@
             "message": "",
             "location": "Bench 15",
             "timeSince": 30
-        },
-        {
-            "id": 7,
-            "name": "John Q.",
-            "type": "Message",
-            "message": "What is the meaning of life?",
-            "location": "Bench 11",
-            "timeSince": 10
         }
     ]
 }

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Flagg</title>
+    <title> Flag</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand"><i class="fa fa-circle-o-notch"></i> Flagg</a>
+                <a class="navbar-brand"><i class="fa fa-circle-o-notch"></i> Flag</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -71,14 +71,15 @@
             <div class="row">
                 <!--<div class="col-lg-1"></div> -->
                 <div class="col-lg-9">
-                    <h1 class="content-header ">Dashboard</h1>
+                    <h1 class="content-header hide" id="headng">Dashboard</h1>
+                    <h1 class="page-header text-center" id="rmCh"><i class="fa fa-arrow-left"></i>    Please choose a room.</h1>
                 </div>
+                
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <!--<div class="col-lg-1 col-md-6"></div> -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 hide" id="butt1" attr="poop">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -95,9 +96,9 @@
                             <div class="panel-footer">
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">Request</button>
+                                        <button class="btn btn-default" type="button" onclick="colStr()">Request</button>
                                     </span>
-                                    <input type="text" class="form-control" placeholder="I need help with...">
+                                    <input type="text" class="form-control" placeholder="I need help with..." id="strSrc">
                                 </div>
                             </div>
                         </a>
@@ -105,7 +106,7 @@
                 </div>
                 <div class="col-lg-1 col-md-6"></div>
                 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 hide" id="butt2">
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
@@ -121,8 +122,8 @@
                         <a href="#">
                             <div class="panel-footer">
                                 <div class="col-lg-4"></div>
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default">Send help!</button>
+                                <div class="btn-group" role="group" id="pingBtn">
+                                    <button type="button" class="btn btn-default" onclick="ping4Help()" id="pingBtn">Send help!</button>
                                 </div>
                             </div>
                         </a>
@@ -136,18 +137,49 @@
 
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
-        
+    
     <script>
-        $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/roomData.json', function(rmData) {
+        $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId=5', function(rmData) {
             var roomDat = [];
             $.each(rmData.rooms, function(index, readData) {
-                roomDat.push("<li> <a href='#'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
-                console.log(readData.name);
+                //console.log(readData.roomId);
+                roomDat.push("<li id='link"+index+"'> <a href='#' onclick='chooseRoom(\""+readData.roomId+"\")'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
             })
             
             $('#usrRooms li:last').after(roomDat);
         })
     </script>
+    
+    <script>
+        function chooseRoom(room) {
+            $('#headng').removeClass('hide');
+            $('#butt1').removeClass('hide');
+            $('#butt2').removeClass('hide');
+            $('#rmCh').addClass('hide');
+            //$(room).addClass('active');
+            //console.log('initial: '+room);
+            window.roomID = room;
+        }
+    </script>
+        
+    <script>
+        function ping4Help() {
+            $('button').prop('disabled', true);
+        }
+    </script>
+        
+    <script>
+        function colStr() {
+            var inpt = $('#strSrc').val(), roomID = window.roomID;
+            
+            //console.log('Submitting: '+roomID);
+            var url = 'http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/updateelementstatebyroom?userId=5&roomId='+roomID+'&value=\"'+inpt+'\"&type=Message';
+            
+            $.get(url);
+        }
+    </script>
+        
+        <!--http://ec2-54-157-229-80.compute-1.amazonaws.com/updateelementstate?userId=5&elementId=&value=inpt -->
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
