@@ -169,43 +169,28 @@
     
     <script>
         var userID = sessionStorage.getItem('userId') || '5';
-        function chooseRoom(room){
-            window.roomID=room;
-            updateTable();
-        }
-    </script>
-    
-    <script>
-        var userID = window.userID;
-        console.log(userID)
+        
         $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId='+userID, function(rmData) {
             var roomDat = [];
             $.each(rmData.rooms, function(index, readData) {
                 roomDat.push("<li> <a href='#' onclick='bigReveal(\""+readData.roomId+"\")'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
-                console.log(readData.name);
             })
             
             $('#usrRooms li:last').after(roomDat);
         })
-    </script>
-    
-    <script>
+        
         function bigReveal(room)  {
             $('#hideTable').removeClass('hide');
             $('#hideOther').removeClass('hide');
             $('#hideTitle').removeClass('hide');
             $('#rmCh').addClass('hide');
             
-            chooseRoom(room);
+            window.roomID=room;
+            updateTable();
         }
-    </script>
-    
-    <script>
+        
         function updateTable() {
-            
-            window.count++;
             $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/admin/roomelements?userId='+userID+'&roomId='+window.roomID, function(stdData) {
-                window.loading = true;
                 var items = [], time, type;
                 var pingCount = 0, messCount = 0;
                 
@@ -215,7 +200,6 @@
                     } else {
                         time = (readData.timeSince/60).toFixed() + " min"
                     }
-                    //console.log(readData.type);
                     if(readData.type == "Message") { //Button property assembly
                         type = readData.type;
                         messCount++;
@@ -223,11 +207,8 @@
                         type = readData.type;
                         pingCount++;
                     }
-                    //console.log('mess: '+messCount+' ping: '+pingCount);
                     items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.message+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
                 })
-                
-                //console.log(window.count);
                 
                 $('.repl').remove();
                 $('#dataTable tr:last').after(items);
@@ -235,39 +216,9 @@
                 $('#messCnt').replaceWith("<div class='huge' id='messCnt'>"+messCount+"</div>");
                 $('#pingCnt').replaceWith("<div class='huge' id='pingCnt'>"+pingCount+"</div>");
             })
-            window.loading = false;
             setTimeout(updateTable,5000);
         }
-        
-        updateTable();
     </script>
-    
-    <!--
-    <script>
-        function keepLoading() {
-        //while(true) {
-            if(window.loading == false) {
-                setTimeout(updateTable(), 5000);
-            }
-        //}
-        }
-    </script>-->
-
-    <script>
-        $(document).ready(function() {
-            console.log('Page loaded!');
-            window.count = 0;
-            //myFun();
-            //updateTable();
-            //keepLoading();
-            
-        });
-    </script>
-    
-    
-    <!-- jQuery 
-    <script src="../vendor/jquery/jquery.min.js"></script> -->
-    
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>

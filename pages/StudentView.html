@@ -142,9 +142,7 @@
         
     <script>
         var userId = sessionStorage.getItem('userId') || '5';
-    </script>
-    
-    <script>
+        
         $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId='+userId, function(rmData) {
             var roomDat = [];
             $.each(rmData.rooms, function(index, readData) {
@@ -154,9 +152,7 @@
             
             $('#usrRooms li:last').after(roomDat);
         })
-    </script>
-    
-    <script>
+        
         function chooseRoom(room) {
             $('#headng').removeClass('hide');
             $('#butt1').removeClass('hide');
@@ -166,18 +162,14 @@
             //console.log('initial: '+room);
             window.roomID = room;
         }
-    </script>
         
-    <script>
         function ping4Help() {
             //$('button').prop('disabled', true);
             var url = 'http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/updateelementstatebyroom?userId='+userId+'&roomId='+roomID+'&value=true&type=Ping';
             
             $.get(url);
         }
-    </script>
         
-    <script>
         function colStr() {
             var inpt = $('#strSrc').val(), roomID = window.roomID;
             
@@ -187,9 +179,8 @@
             $.get(url);
         }
     </script>
+    
         
-        <!--http://ec2-54-157-229-80.compute-1.amazonaws.com/updateelementstate?userId=5&elementId=&value=inpt -->
-
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
