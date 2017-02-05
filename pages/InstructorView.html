@@ -182,12 +182,12 @@
         function updateTable() {
             
             window.count++;
-            $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.3.json', function(stdData) {
+            $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/admin/roomelements?userId=5&roomId=1', function(stdData) {
                 window.loading = true;
                 var items = [], time, type;
                 var pingCount = 0, messCount = 0;
                 
-                $.each(stdData.students, function(index, readData) { //Operations to be done for each student requesting assistance
+                $.each(stdData.elements, function(index, readData) { //Operations to be done for each student requesting assistance
                     if(readData.timeSince < 60) {
                         time = " < 1 min"
                     } else {
@@ -222,12 +222,11 @@
 
             })
             window.loading = false;
+            //$('[data-toggle="popover"]').popover();
             setTimeout(updateTable,5000);
         }
+        
         updateTable();
-        $(function () {
-          $('[data-toggle="popover"]').popover()
-        })
     </script> 
     
     <script>
@@ -249,6 +248,9 @@
             keepLoading();
             
         });
+        $(function () {
+          $('[data-toggle="popover"]').popover()
+        })
     </script>
 
     
