@@ -164,7 +164,10 @@
         
     <script>
         function ping4Help() {
-            $('button').prop('disabled', true);
+            //$('button').prop('disabled', true);
+            var url = 'http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/updateelementstatebyroom?userId=5&roomId='+roomID+'&value=true&type=Ping';
+            
+            $.get(url);
         }
     </script>
         
@@ -173,7 +176,7 @@
             var inpt = $('#strSrc').val(), roomID = window.roomID;
             
             //console.log('Submitting: '+roomID);
-            var url = 'http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/updateelementstatebyroom?userId=5&roomId='+roomID+'&value=\"'+inpt+'\"&type=Message';
+            var url = 'http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/updateelementstatebyroom?userId=5&roomId='+roomID+'&value='+inpt+'&type=Message';
             
             $.get(url);
         }

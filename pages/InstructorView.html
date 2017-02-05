@@ -148,6 +148,7 @@
                                     <tr id="wipePoint">
                                         <th>Name</th>
                                         <th>Type of request</th>
+                                        <th>Message</th>
                                         <th>Location</th>
                                         <th>Time since (min)</th>
                                     </tr>
@@ -195,21 +196,14 @@
                     }
                     
                     if(readData.type == "Message") { //Button property assembly
-                        var properties = 'type="button"';
-                        properties = properties + ' class="btn btn-sm"';
-                        properties = properties + ' data-toggle="popover"';
-                        properties = properties + ' title="'+readData.name+'"';
-                        properties = properties + ' data-content="'+readData.message+'"';
-
-                        type = readData.type + ' <button +' +properties+'><b>View message</b></button>';
+                        type = readData.type;
                         messCount++;
                     } else {
                         type = readData.type;
                         pingCount++;
                     }
                     
-                    //items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
-                    items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
+                    items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.message+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
                 })
                 
                 console.log(window.count);
