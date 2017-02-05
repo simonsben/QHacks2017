@@ -20,12 +20,15 @@
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS 
+    <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-    -->
+    
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -102,10 +105,28 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge" id="stdQues">
+                                    <div class="huge" id="messCnt">
                                         
                                     </div>
                                     <div>Student Questions</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="pingCnt">
+                                    
+                                    </div>
+                                    <div>Assistance Needed</div>
                                 </div>
                             </div>
                         </div>
@@ -127,34 +148,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-1"></div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>Assistance Needed</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-11">
-                    <div class="panel panel-default">
+                    <div class="panel">
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable">
                                 <thread>
                                     <tr>
-                                        <th>Number</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
+                                        <th>Name</th>
+                                        <th>Type of request</th>
+                                        <th>Time since (min)</th>
                                     </tr>
                                 </thread>
                             </table>
@@ -169,23 +175,49 @@
     </div>
     <!-- /#wrapper -->
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
-        $.getJSON('data.json', function(stdData) {
-            var items = [];
+        $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.1.json', function(stdData) {
+            var items = [], time, type;
+            var pingCount = 0, messCount = 0;
             $.each(stdData.students, function(index, readData) {
-                items.push("<tr><th>"+readData.id+"</th>"+"<th>"+readData.first+"</th>"+"<th>"+readData.last+"</th>");
+                if(readData.timeSince < 60) {
+                    time = " < 1 min"
+                } else {
+                    time = (readData.timeSince/60).toFixed() + " min"
+                }
+                console.log(readData.message);
+                if(readData.type == "Message") {
+                    var properties = 'type="button"';
+                    properties = properties + ' class="btn btn-sm"';
+                    properties = properties + ' data-toggle="popover"';
+                    properties = properties + ' placement="top"';
+                    properties = properties + ' title="'+readData.name+'"';
+                    properties = properties + ' data-content="'+readData.message+'"';
+                    
+                    type = readData.type + ' <button +' +properties+'><b>View message</b></button>';
+                    messCount++;
+                } else {
+                    type = readData.type;
+                    pingCount++;
+                }
+                items.push("<tr><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+time+"</th>");
             })
-            console.log(stdData.length);
             $('#dataTable tr:last').after(items);
-            $('#stdQues').after(stdData.length);
+            $('#messCnt').after("<div class='huge'>"+messCount+"</div>");
+            $('#pingCnt').after("<div class='huge'>"+pingCount+"</div>");
             
         })
     </script>
+    
+    <script>
+        $(function () {
+          $('[data-toggle="popover"]').popover()
+        })
+    </script>
 
-
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- jQuery 
+    <script src="../vendor/jquery/jquery.min.js"></script> -->
+    
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
