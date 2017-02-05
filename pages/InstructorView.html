@@ -53,26 +53,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand"><i class="fa fa-circle-o-notch"></i> Flagg</a>
+                
             </div>
 
             <div class="navbar-default sidebar" role="navigation" >
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="usrRooms">
-                        <li></li>
-                        <!--
                         <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Lab 1</a>
                         </li>
-                        
-                        <li>
-                            <i class="fa fa-dashboard fa-fw"></i> Lab 2
-                        </li>
-                        <li>
-                            <i class="fa fa-dashboard fa-fw"></i> Lab 3
-                        </li>
-                        -->
-                        <!-- document.getElementById("nav").appendHTML("<li>") -->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -101,7 +90,7 @@
                                     <div class="huge" id="messCnt">
                                         
                                     </div>
-                                    <div>Student Questions</div>
+                                    <div>Pending Questions</div>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +164,7 @@
         $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/roomData.json', function(rmData) {
             var roomDat = [];
             $.each(rmData.rooms, function(index, readData) {
-                roomDat.push("<li> <a href='#'><i class='fa fa-dashboard da-fw'></i> "+readData.name+" </a> </li>");
+                roomDat.push("<li> <a href='#'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
                 console.log(readData.name);
             })
             
