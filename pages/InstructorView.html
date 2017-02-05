@@ -168,9 +168,9 @@
     <!-- /#wrapper -->
     
     <script>
-        var userID = sessionStorage.getItem('userId') || '5';
+        var userID = sessionStorage.getItem('userId') || '1';
         
-        $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId='+userID, function(rmData) {
+        $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/admin/myrooms?userId='+userID, function(rmData) {
             var roomDat = [];
             $.each(rmData.rooms, function(index, readData) {
                 roomDat.push("<li> <a href='#' onclick='bigReveal(\""+readData.roomId+"\")'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
