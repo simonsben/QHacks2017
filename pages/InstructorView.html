@@ -166,7 +166,7 @@
     <!-- /#wrapper -->
     
     <script>
-        $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/roomData.json', function(rmData) {
+        $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId=5', function(rmData) {
             var roomDat = [];
             $.each(rmData.rooms, function(index, readData) {
                 roomDat.push("<li> <a href='#'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
