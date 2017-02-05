@@ -136,12 +136,19 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="btn-group" role="group" id="pingBtn">
+                        <button type="button" class="btn btn-default" onclick="updateTable()" id="getData">Send help!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-11">
                     <div class="panel">
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable">
                                 <thread>
-                                    <tr>
+                                    <tr id="wipePoint">
                                         <th>Name</th>
                                         <th>Type of request</th>
                                         <th>Location</th>
@@ -172,84 +179,76 @@
         })
     </script>
     
-    <!--
+
     <script>
-        $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.3.json', function(stdData) {
-            var items = [], time, type;
-            var pingCount = 0, messCount = 0;
-            $.each(stdData.students, function(index, readData) { //Operations to be done for each student requesting assistance
-                if(readData.timeSince < 60) {
-                    time = " < 1 min"
-                } else {
-                    time = (readData.timeSince/60).toFixed() + " min"
-                }
-                if(readData.type == "Message") { //Button property assembly
-                    var properties = 'type="button"';
-                    properties = properties + ' class="btn btn-sm"';
-                    properties = properties + ' data-toggle="popover"';
-                    properties = properties + ' title="'+readData.name+'"';
-                    properties = properties + ' data-content="'+readData.message+'"';
-                    
-                    type = readData.type + ' <button +' +properties+'><b>View message</b></button>';
-                    messCount++;
-                } else {
-                    type = readData.type;
-                    pingCount++;
-                }
-                items.push("<tr><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
-            })
-            $('#dataTable tr:last').after(items);
-            $('#messCnt').after("<div class='huge'>"+messCount+"</div>");
-            $('#pingCnt').after("<div class='huge'>"+pingCount+"</div>");
-            
-        })
-    </script> -->
-    
-    <script>
-        var cnt = 0;
-        while(true) {
+        function updateTable() {
+            //window.loading = true;
+            window.count++;
             $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.3.json', function(stdData) {
                 var items = [], time, type;
                 var pingCount = 0, messCount = 0;
-                if(cnt != stdData.length)  {
-                    $.each(stdData.students, function(index, readData) { //Operations to be done for each student requesting assistance
-                        if(readData.timeSince < 60) {
-                            time = " < 1 min"
-                        } else {
-                            time = (readData.timeSince/60).toFixed() + " min"
-                        }
-                        if(readData.type == "Message") { //Button property assembly
-                            var properties = 'type="button"';
-                            properties = properties + ' class="btn btn-sm"';
-                            properties = properties + ' data-toggle="popover"';
-                            properties = properties + ' title="'+readData.name+'"';
-                            properties = properties + ' data-content="'+readData.message+'"';
+                
+                $.each(stdData.students, function(index, readData) { //Operations to be done for each student requesting assistance
+                    if(readData.timeSince < 60) {
+                        time = " < 1 min"
+                    } else {
+                        time = (readData.timeSince/60).toFixed() + " min"
+                    }
+                    
+                    if(readData.type == "Message") { //Button property assembly
+                        var properties = 'type="button"';
+                        properties = properties + ' class="btn btn-sm"';
+                        properties = properties + ' data-toggle="popover"';
+                        properties = properties + ' title="'+readData.name+'"';
+                        properties = properties + ' data-content="'+readData.message+'"';
 
-                            type = readData.type + ' <button +' +properties+'><b>View message</b></button>';
-                            messCount++;
-                        } else {
-                            type = readData.type;
-                            pingCount++;
-                        }
-                        items.push("<tr><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
-                    })
-                    $('#dataTable tr:last').after(items);
-                    $('#messCnt').after("<div class='huge'>"+messCount+"</div>");
-                    $('#pingCnt').after("<div class='huge'>"+pingCount+"</div>");
-                }
+                        type = readData.type + ' <button '+properties+'><b>View message</b></button>';
+                        messCount++;
+                    } else {
+                        type = readData.type;
+                        pingCount++;
+                    }
+                    
+                    items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th></tr>");
+                })
+                
+                console.log(window.count);
+                
+                $('.repl').remove();
+                $('#dataTable tr:last').after(items);
+                
+                $('#messCnt').replaceWith("<div class='huge' id='#messCnt'>"+messCount+"</div>");
+                $('#pingCnt').replaceWith("<div class='huge' id='#pingCnt'>"+pingCount+"</div>");
+
             })
+            //window.loading = false;
+        }
+    </script> 
+    
+    <!--
+    <script>
+        function keepLoading() {
+       // while(true) {
+            if(window.loading == false) {
+                setTimeout(updateTable(), 5000);
+            }
+      //  }
         }
     </script>
+    -->
+    
     <script>
-        setTimeout(function() {
-            
-        }, 1000);
+          $('[data-toggle="popover"]').popover()
     </script>
     
     <script>
-        $(function () {
-          $('[data-toggle="popover"]').popover()
-        })
+        $(document).ready(function() {
+            console.log('Page loaded!');
+            window.count = 0;
+            updateTable();
+            //keepLoading();
+            
+        });
     </script>
 
     <!-- jQuery 
