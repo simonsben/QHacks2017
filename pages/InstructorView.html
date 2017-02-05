@@ -196,7 +196,7 @@
             $('#hideTitle').removeClass('hide');
             $('#rmCh').addClass('hide');
             
-            window.roomID = room;
+            chooseRoom(room);
         }
     </script>
     
@@ -223,7 +223,7 @@
                         type = readData.type;
                         pingCount++;
                     }
-                    console.log('mess: '+messCount+' ping: '+pingCount);
+                    //console.log('mess: '+messCount+' ping: '+pingCount);
                     items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.message+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
                 })
                 
@@ -232,19 +232,17 @@
                 $('.repl').remove();
                 $('#dataTable tr:last').after(items);
                 
-                $('#messCnt').replaceWith("<div class='huge' id='#messCnt'>"+messCount+"</div>");
-                $('#pingCnt').replaceWith("<div class='huge' id='#pingCnt'>"+pingCount+"</div>");
-                //console.log('test');
-
+                $('#messCnt').replaceWith("<div class='huge' id='messCnt'>"+messCount+"</div>");
+                $('#pingCnt').replaceWith("<div class='huge' id='pingCnt'>"+pingCount+"</div>");
             })
             window.loading = false;
-            //$('[data-toggle="popover"]').popover();
             setTimeout(updateTable,5000);
         }
         
         updateTable();
-    </script> 
+    </script>
     
+    <!--
     <script>
         function keepLoading() {
         //while(true) {
@@ -253,7 +251,7 @@
             }
         //}
         }
-    </script>
+    </script>-->
 
     <script>
         $(document).ready(function() {
@@ -261,19 +259,9 @@
             window.count = 0;
             //myFun();
             //updateTable();
-            keepLoading();
+            //keepLoading();
             
         });
-        $(function () {
-          $('[data-toggle="popover"]').popover()
-        })
-    </script>
-
-    
-    <script>
-      $(function () {
-          $('[data-toggle="popover"]').popover()
-        })
     </script>
     
     
