@@ -1,0 +1,60 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Bob A.",
+            "type": "Ping",
+            "message": "",
+            "location": "Bench 4",
+            "timeSince": 240
+        },
+        {
+            "id": 1,
+            "name": "Joe K.",
+            "type": "Message",
+            "message": "How to code?",
+            "location": "Bench 1",
+            "timeSince": 105   
+        },
+        {
+            "id": 3,
+            "name": "Daniel A.",
+            "type": "Ping",
+            "message": "",
+            "location": "Bench 14",
+            "timeSince": 90
+        },
+        {
+            "id": 4,
+            "name": "Steve V.",
+            "type": "Message",
+            "message": "What is a code??<>",
+            "location": "Bench 12",
+            "timeSince": 60
+        },
+        {
+            "id": 5,
+            "name": "Joey M.",
+            "type": "Message",
+            "message": "What is a code??",
+            "location": "Bench 17",
+            "timeSince": 25
+        },
+        {
+            "id": 6,
+            "name": "Don K.",
+            "type": "Message",
+            "message": "How does this work?",
+            "location": "Bench 15",
+            "timeSince": 25
+        },
+        {
+            "id": 7,
+            "name": "John Q.",
+            "type": "Message",
+            "message": "What is the meaning of life?",
+            "location": "Bench 11",
+            "timeSince": 25
+        }
+    ]
+}
