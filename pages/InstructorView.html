@@ -56,30 +56,22 @@
                 <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
             </div>
 
-            <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar" role="navigation" >
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav" id="usrRooms">
+                        <li></li>
                         <!--
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
+                        <li>
+                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Lab 1</a>
+                        </li>
+                        
+                        <li>
+                            <i class="fa fa-dashboard fa-fw"></i> Lab 2
+                        </li>
+                        <li>
+                            <i class="fa fa-dashboard fa-fw"></i> Lab 3
                         </li>
                         -->
-                        <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Lab 1</a>
-                        </li>
-                        <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Lab 2</a>
-                        </li>
-                        <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Lab 3</a>
-                        </li>
                         <!-- document.getElementById("nav").appendHTML("<li>") -->
                     </ul>
                 </div>
@@ -178,6 +170,19 @@
 
     </div>
     <!-- /#wrapper -->
+    
+    <script>
+        $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/roomData.json', function(rmData) {
+            var roomDat = [];
+            $.each(rmData.rooms, function(index, readData) {
+                roomDat.push("<li> <a href='#'><i class='fa fa-dashboard da-fw'></i> "+readData.name+" </a> </li>");
+                console.log(readData.name);
+            })
+            
+            $('#usrRooms li:last').after(roomDat);
+        })
+    </script>
+    
     
     <script>
         $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.3.json', function(stdData) {
