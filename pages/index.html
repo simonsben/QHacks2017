@@ -111,21 +111,22 @@
 			
 			<!-- <div class="col-md-12 text-center" style="font-size:30pt;"><em>Scroll down to learn more!</em> <i class="fa fa-arrow-down" ></i></div> -->
 			<div class="row" id="About">
-				<div class="col-md-6"><p>Flag is a simple web application designed to be used anywhere in the world, and by anyone. This app aims to change the way we interact and receive service in the real world. In rapidly evolving times, it is up to us to transform and develope technology that makes our daily activities easier, and more convenient. Flag aims to accomplish this by allowing users to join any "room" that they find useful. In each room is a set of flags, allowing the user to "flag" themselves, showing that they require instant service. The best part? These flags can be set to represent anything you want! Be it academic assisstance in your school, service at a restaurant, or help in a hospital, Flag will find out where you are, allow you to enter a relevant room, and notify any staff who use this app that you require service. </div>
+                <div class="col-md-6"><p><h3>What is Flag?</h3>Flag aims to change the way we interact with and receive service in our daily lives. Whether you’re asking a question or asking for assistance, our easy-to-use interface ensures you’ll be well taken care of as soon as possible.</p></div>
 				<div class="col-md-2"><img src="../images/PendingQuestions.png"></div>
 				<div class="col-md-1"></div>
 				<div class="col-md-2"><img src="../images/AssistanceNeeded.png"></div>
 			</div>
 			
 			<div class="row" id="F4B">
+                <br><br>
 				<div class="col-md-6 text-center"><h1><i class="fa fa-bank fa-4x"></i>&nbsp&nbsp&nbsp&nbsp<i class="fa fa-graduation-cap fa-4x"></i></h1></div>
-				<div class="col-md-6"></div><div class="col-md-6"><p>Flag allows businesses to offer unique and efficient service, giving companies a leading edge in fast, quality service. Restaurants that use devices such as tablets will no longer need to purchase expensive hardware and configure that hardware with the restaurant. Flag allows users to sign into restaurant rooms with their own user ID's, and simply "flag" themselves for instant service as specified by you. This means that your business will be able to digitize by simply installing the app! Flag is cost efficient, easy to use, and enhances service dramatically for your needs.</div>
+                <div class="col-md-6"></div><div class="col-md-6"><p><br><h3>How can you use it?</h3>From restaurants to schools to hospitals, the Flag system seamlessly integrates into any workflow. Businesses can use Flag to eliminate the headache of managing and organizing simple tasks.</p></div>
 			</div>
 			
 			<div class="row" id="Team">
-				</br>
-				</br>
-				<div class="col-md-6"><p>Flag was created by a team of four, and was designed to completely revolutionize the world around us, further integrating phones and communications technologies with the real world. The product was made by Cooper Harasyn, Ben Simons, Daniel Armitage, and Zohaib Qureshi during a Queens University Hackathon. These four engineering and computing students strive in their work, and aim to provide high quality updates and supports to ensure a user friendly, easy to use instant service application.</p> </div>
+				<br>
+                
+				<div class="col-md-6"><p><br><h3>Why Flag?</h3>Flag was created out of personal need by four engineering and computing students. They felt that the whiteboard-based queuing system used in their labs to beckon TAs was in dire need of a revamp. An online version of this outdated system provides convenience and scalability for students and educators alike.</p></div>
 				<div class="col-md-2"></div>
 				<div class="col-md-2">
 					<a href="https://github.com/simonsben/QHacks2017" target="_blank">
@@ -174,8 +175,16 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Login</h4>
               </div>
+                
               <div class="modal-body">
                   <div class="row">
+                    <div class="col-md-2">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src="../images/flag-favicon.png" style="position:fixed">
+                      </div>
+                  </div>
+                  <div class="row">
+                      
                     <div class="col-md-8 col-md-offset-2">
                         <div class="login-panel panel panel-default">
                             <div class="panel-heading">
@@ -188,7 +197,7 @@
                                             <input class="form-control" placeholder="Username" name="username" id="usrNme" type="username" autofocus>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                            <input class="form-control" placeholder="Password" name="password" id="psswrd" type="password" value="">
                                         </div>
                                         <!-- Change this to a button or input when using this as a form -->
                                         <a href="#" class="btn btn-lg btn-success btn-block" onclick="DoLogin()">Login</a>
@@ -210,10 +219,16 @@
     <script>
         function DoLogin(){
             var inpt = $('#usrNme').val(), roomID = window.roomID;
-            console.log(inpt);
+            var pinpt = $('#psswrd').val(), roomID = window.roomID;
+            
             $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/login?username='+inpt+'&passHash=0', function(logData) {
                 sessionStorage.setItem('userId',logData.userId);
-                window.location="StudentView.html";
+                if(pinpt == 'admin') {
+                    window.location="InstructorView.html";
+                } else {
+                    window.location="StudentView.html";
+                }
+                
 
                 $('#usrRooms li:last').after(roomDat);
             })

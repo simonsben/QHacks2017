@@ -72,13 +72,14 @@
 
         <div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="content-header">Student Statistics</h1>
+                <div class="col-lg-12" >
+                    <h1 class="content-header hide" id="hideTitle">Student Statistics</h1>
+                    <h1 class="page-header text-center" id="rmCh"><i class="fa fa-arrow-left"></i>   Please choose a room.</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
+            <div class="row hide" id="hideOther">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
@@ -140,7 +141,7 @@
                 <div class="col-lg-12">
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide" id="hideTable">
                 <div class="col-lg-11">
                     <div class="panel">
                         <div class="panel-body">
@@ -165,18 +166,22 @@
 
     </div>
     <!-- /#wrapper -->
+    
     <script>
-        var userId = sessionStorage.getItem('userId') || '5';
+        var userID = sessionStorage.getItem('userId') || '5';
         function chooseRoom(room){
-            window.roomId=room;
+            window.roomID=room;
             updateTable();
         }
     </script>
+    
     <script>
-        $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId='+userId, function(rmData) {
+        var userID = window.userID;
+        console.log(userID)
+        $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/myrooms?userId='+userID, function(rmData) {
             var roomDat = [];
             $.each(rmData.rooms, function(index, readData) {
-                roomDat.push("<li> <a href='#' onclick='chooseRoom(\""+readData.roomId+"\")'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
+                roomDat.push("<li> <a href='#' onclick='bigReveal(\""+readData.roomId+"\")'><i class='fa fa-users da-fw'></i> "+readData.name+" </a> </li>");
                 console.log(readData.name);
             })
             
@@ -184,13 +189,22 @@
         })
     </script>
     
-    
+    <script>
+        function bigReveal(room)  {
+            $('#hideTable').removeClass('hide');
+            $('#hideOther').removeClass('hide');
+            $('#hideTitle').removeClass('hide');
+            $('#rmCh').addClass('hide');
+            
+            window.roomID = room;
+        }
+    </script>
     
     <script>
         function updateTable() {
             
             window.count++;
-            $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/admin/roomelements?userId='+userId+'&roomId='+window.roomId, function(stdData) {
+            $.getJSON('http://ec2-54-157-229-80.compute-1.amazonaws.com:42000/admin/roomelements?userId='+userID+'&roomId='+window.roomID, function(stdData) {
                 window.loading = true;
                 var items = [], time, type;
                 var pingCount = 0, messCount = 0;
@@ -201,7 +215,7 @@
                     } else {
                         time = (readData.timeSince/60).toFixed() + " min"
                     }
-                    
+                    //console.log(readData.type);
                     if(readData.type == "Message") { //Button property assembly
                         type = readData.type;
                         messCount++;
@@ -209,18 +223,18 @@
                         type = readData.type;
                         pingCount++;
                     }
-                    
+                    console.log('mess: '+messCount+' ping: '+pingCount);
                     items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.message+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
                 })
                 
-                console.log(window.count);
+                //console.log(window.count);
                 
                 $('.repl').remove();
                 $('#dataTable tr:last').after(items);
                 
                 $('#messCnt').replaceWith("<div class='huge' id='#messCnt'>"+messCount+"</div>");
                 $('#pingCnt').replaceWith("<div class='huge' id='#pingCnt'>"+pingCount+"</div>");
-                console.log('test');
+                //console.log('test');
 
             })
             window.loading = false;
