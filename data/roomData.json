@@ -3,22 +3,22 @@
         {
             "id": 1,
             "name": "ELEC 271",
-            "prof": "Manjikian",
+            "prof": "Manjikian"
         },
         {
             "id": 2,
             "name": "CMPE 212",
-            "prof": "McLoud", 
+            "prof": "McLoud"
         },
         {
             "id": 3,
             "name": "MTHE 212",
-            "prof": "Avdeeva",
+            "prof": "Avdeeva"
         },
         {
             "id": 4,
             "name": "MTHE 281",
-            "prof": "Lewis",
+            "prof": "Lewis"
         }
     ]
 }
