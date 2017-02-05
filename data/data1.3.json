@@ -28,7 +28,7 @@
             "id": 4,
             "name": "Steve V.",
             "type": "Message",
-            "message": "What is a code??<>",
+            "message": "What is a code??",
             "location": "Bench 12",
             "timeSince": 60
         },
@@ -43,8 +43,8 @@
         {
             "id": 6,
             "name": "Don K.",
-            "type": "Message",
-            "message": "How does this work?",
+            "type": "Ping",
+            "message": "",
             "location": "Bench 15",
             "timeSince": 30
         },
