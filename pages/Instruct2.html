@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Flag</title>
+    <title>Flagg</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -53,7 +53,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand"><i class="fa fa-circle-o-notch"></i> Flag</a>
+                <a class="navbar-brand"><i class="fa fa-circle-o-notch"></i> Flagg</a>
                 
             </div>
 
@@ -136,16 +136,12 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-12">
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-11">
                     <div class="panel">
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable">
                                 <thread>
-                                    <tr id="wipePoint">
+                                    <tr>
                                         <th>Name</th>
                                         <th>Type of request</th>
                                         <th>Location</th>
@@ -177,88 +173,44 @@
     </script>
     
     
+    <script>
+        $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.3.json', function(stdData) {
+            var items = [], time, type;
+            var pingCount = 0, messCount = 0;
+            $.each(stdData.students, function(index, readData) { //Operations to be done for each student requesting assistance
+                if(readData.timeSince < 60) {
+                    time = " < 1 min"
+                } else {
+                    time = (readData.timeSince/60).toFixed() + " min"
+                }
+                if(readData.type == "Message") { //Button property assembly
+                    var properties = 'type="button"';
+                    properties = properties + ' class="btn btn-sm"';
+                    properties = properties + ' data-toggle="popover"';
+                    properties = properties + ' title="'+readData.name+'"';
+                    properties = properties + ' data-content="'+readData.message+'"';
+                    
+                    type = readData.type + ' <button +' +properties+'><b>View message</b></button>';
+                    messCount++;
+                } else {
+                    type = readData.type;
+                    pingCount++;
+                }
+                items.push("<tr><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
+            })
+            $('#dataTable tr:last').after(items);
+            $('#messCnt').after("<div class='huge'>"+messCount+"</div>");
+            $('#pingCnt').after("<div class='huge'>"+pingCount+"</div>");
+            
+        })
+    </script>
     
     <script>
-        function updateTable() {
-            
-            window.count++;
-            $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.3.json', function(stdData) {
-                window.loading = true;
-                var items = [], time, type;
-                var pingCount = 0, messCount = 0;
-                
-                $.each(stdData.students, function(index, readData) { //Operations to be done for each student requesting assistance
-                    if(readData.timeSince < 60) {
-                        time = " < 1 min"
-                    } else {
-                        time = (readData.timeSince/60).toFixed() + " min"
-                    }
-                    
-                    if(readData.type == "Message") { //Button property assembly
-                        var properties = 'type="button"';
-                        properties = properties + ' class="btn btn-sm"';
-                        properties = properties + ' data-toggle="popover"';
-                        properties = properties + ' title="'+readData.name+'"';
-                        properties = properties + ' data-content="'+readData.message+'"';
-
-                        type = readData.type + ' <button +' +properties+'><b>View message</b></button>';
-                        messCount++;
-                    } else {
-                        type = readData.type;
-                        pingCount++;
-                    }
-                    
-                    //items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
-                    items.push("<tr class='repl'><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
-                })
-                
-                console.log(window.count);
-                
-                $('.repl').remove();
-                $('#dataTable tr:last').after(items);
-                
-                $('#messCnt').replaceWith("<div class='huge' id='#messCnt'>"+messCount+"</div>");
-                $('#pingCnt').replaceWith("<div class='huge' id='#pingCnt'>"+pingCount+"</div>");
-
-            })
-            window.loading = false;
-            setTimeout(updateTable,5000);
-        }
-        updateTable();
         $(function () {
           $('[data-toggle="popover"]').popover()
         })
-    </script> 
-    
-    <script>
-        function keepLoading() {
-        //while(true) {
-            if(window.loading == false) {
-                setTimeout(updateTable(), 5000);
-            }
-        //}
-        }
     </script>
 
-    <script>
-        $(document).ready(function() {
-            console.log('Page loaded!');
-            window.count = 0;
-            //myFun();
-            //updateTable();
-            keepLoading();
-            
-        });
-    </script>
-
-    
-    <script>
-      $(function () {
-          $('[data-toggle="popover"]').popover()
-        })
-    </script>
-    
-    
     <!-- jQuery 
     <script src="../vendor/jquery/jquery.min.js"></script> -->
     
@@ -281,5 +233,4 @@
 </body>
 
 </html>
-
 
