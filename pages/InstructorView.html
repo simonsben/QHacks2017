@@ -97,6 +97,7 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                <div class="col-lg-1"></div>
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -120,7 +121,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-bullhorn fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge" id="pingCnt">
@@ -133,6 +134,7 @@
                     </div>
                 </div>
                 <div class="col-lg-1"></div>
+                <!--
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
                         <div class="panel-heading">
@@ -148,6 +150,7 @@
                         </div>
                     </div>
                 </div>
+                -->
                 
             </div>
             <!-- /.row -->
@@ -160,6 +163,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Type of request</th>
+                                        <th>Location</th>
                                         <th>Time since (min)</th>
                                     </tr>
                                 </thread>
@@ -176,21 +180,19 @@
     <!-- /#wrapper -->
     
     <script>
-        $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.1.json', function(stdData) {
+        $.getJSON('https://raw.githubusercontent.com/simonsben/QHacks2017/master/data/data1.3.json', function(stdData) {
             var items = [], time, type;
             var pingCount = 0, messCount = 0;
-            $.each(stdData.students, function(index, readData) {
+            $.each(stdData.students, function(index, readData) { //Operations to be done for each student requesting assistance
                 if(readData.timeSince < 60) {
                     time = " < 1 min"
                 } else {
                     time = (readData.timeSince/60).toFixed() + " min"
                 }
-                console.log(readData.message);
-                if(readData.type == "Message") {
+                if(readData.type == "Message") { //Button property assembly
                     var properties = 'type="button"';
                     properties = properties + ' class="btn btn-sm"';
                     properties = properties + ' data-toggle="popover"';
-                    properties = properties + ' placement="top"';
                     properties = properties + ' title="'+readData.name+'"';
                     properties = properties + ' data-content="'+readData.message+'"';
                     
@@ -200,7 +202,7 @@
                     type = readData.type;
                     pingCount++;
                 }
-                items.push("<tr><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+time+"</th>");
+                items.push("<tr><th>"+readData.name+"</th>"+"<th>"+type+"</th>"+"<th>"+readData.location+"</th>"+"<th>"+time+"</th>");
             })
             $('#dataTable tr:last').after(items);
             $('#messCnt').after("<div class='huge'>"+messCount+"</div>");
